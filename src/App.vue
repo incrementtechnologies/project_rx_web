@@ -60,6 +60,7 @@
   overflow: hidden;
   transition: all 1s ease 0s;
   z-index: 1;
+  padding-bottom:5%
 }
 .content-holder.login {
   margin-top: 50px;
