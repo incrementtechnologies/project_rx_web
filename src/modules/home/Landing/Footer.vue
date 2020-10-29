@@ -11,6 +11,7 @@
         <li class="title"><b>Privacy and Terms</b></li>
         <li><a @click="openModal('#termsAndConditionsModal')">Terms & Conditions</a></li>
         <li><a @click="openModal('#privacyModal')">Privacy Policy</a></li>
+        <li><a @click="openModal('#cancellationModal')">Cancellation Policy</a></li>
         <li><a @click="openModal('#refundModal')">Refund Policy</a></li>
         <li><a @click="openModal('#returnModal')">Return Policy</a></li>
         <li><a @click="openModal('#partnersPayoutModal')">Partners Payout Policy</a></li>

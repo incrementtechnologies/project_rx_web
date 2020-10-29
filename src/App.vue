@@ -29,6 +29,7 @@
     <system-loading></system-loading>
     <privacy-policy></privacy-policy>
     <terms-and-conditions></terms-and-conditions>
+    <cancellation-policy></cancellation-policy>
     <return-policy></return-policy>
     <refund-policy></refund-policy>
     <guide></guide>
@@ -300,6 +301,7 @@ export default {
     'landing-footer': () => import('modules/home/Landing/Footer.vue'),
     'privacy-policy': () => import('modules/docs/PrivacyPolicy.vue'),
     'terms-and-conditions': () => import('modules/docs/TermsAndConditions.vue'),
+    'cancellation-policy': () => import('modules/docs/CancellationPolicy.vue'),
     'return-policy': () => import('modules/docs/ReturnPolicy.vue'),
     'refund-policy': () => import('modules/docs/RefundPolicy.vue'),
     'guide': () => import('modules/guide/Guide.vue'),
