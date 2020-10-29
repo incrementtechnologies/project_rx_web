@@ -29,9 +29,15 @@
     <system-loading></system-loading>
     <privacy-policy></privacy-policy>
     <terms-and-conditions></terms-and-conditions>
+<<<<<<< HEAD
     <cancellation-policy></cancellation-policy>
+=======
+    <faq></faq>
+>>>>>>> c1cac10a9770839fc154335b7344d5617d102010
     <return-policy></return-policy>
     <refund-policy></refund-policy>
+    <partners-payout-policy></partners-payout-policy>
+
     <guide></guide>
   </div>
 </template>
@@ -58,6 +64,7 @@
   overflow: hidden;
   transition: all 1s ease 0s;
   z-index: 1;
+  padding-bottom:5%
 }
 .content-holder.login {
   margin-top: 50px;
@@ -304,6 +311,7 @@ export default {
     'cancellation-policy': () => import('modules/docs/CancellationPolicy.vue'),
     'return-policy': () => import('modules/docs/ReturnPolicy.vue'),
     'refund-policy': () => import('modules/docs/RefundPolicy.vue'),
+    'partners-payout-policy': () => import('modules/docs/PartnersPayoutPolicy.vue'),
     'guide': () => import('modules/guide/Guide.vue'),
     'support-messenger': () => import('components/increment/support/Support.vue'),
     'tutorial': () => import('components/increment/generic/tutorial/Tutorial.vue'),
