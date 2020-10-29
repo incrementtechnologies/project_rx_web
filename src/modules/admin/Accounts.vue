@@ -369,7 +369,10 @@ export default{
             value: item.id,
             column: 'account_id',
             clause: '='
-          }]
+          }],
+          sort: {
+            created_at: 'desc'
+          }
         }
       }else{
         // merchant id here
@@ -378,7 +381,10 @@ export default{
             value: item.id,
             column: 'account_id',
             clause: '='
-          }]
+          }],
+          sort: {
+            created_at: 'desc'
+          }
         }
       }
       // $('#loading').css({display: 'block'})
