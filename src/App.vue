@@ -29,11 +29,7 @@
     <system-loading></system-loading>
     <privacy-policy></privacy-policy>
     <terms-and-conditions></terms-and-conditions>
-<<<<<<< HEAD
-    <cancellation-policy></cancellation-policy>
-=======
     <faq></faq>
->>>>>>> c1cac10a9770839fc154335b7344d5617d102010
     <return-policy></return-policy>
     <refund-policy></refund-policy>
     <partners-payout-policy></partners-payout-policy>
@@ -308,7 +304,7 @@ export default {
     'landing-footer': () => import('modules/home/Landing/Footer.vue'),
     'privacy-policy': () => import('modules/docs/PrivacyPolicy.vue'),
     'terms-and-conditions': () => import('modules/docs/TermsAndConditions.vue'),
-    'cancellation-policy': () => import('modules/docs/CancellationPolicy.vue'),
+    'faq': () => import('modules/docs/Faq.vue'),
     'return-policy': () => import('modules/docs/ReturnPolicy.vue'),
     'refund-policy': () => import('modules/docs/RefundPolicy.vue'),
     'partners-payout-policy': () => import('modules/docs/PartnersPayoutPolicy.vue'),
