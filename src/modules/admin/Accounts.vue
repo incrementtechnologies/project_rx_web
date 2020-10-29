@@ -107,6 +107,17 @@
       </div>
     </div>
 
+    <Confirmation
+    ref="confirms"
+    :title="'Validation'"
+    :message="'Are you sure you want to validate this merchant?'"
+    @onConfirm="confirm($event)"
+    >
+    </Confirmation>
+
+    <MerchantInfo
+    ref="merchantInfo"
+    ></MerchantInfo>
 
     <empty v-if="data === null" :title="'No accounts available!'" :action="'Keep growing.'"></empty>
   </div>
@@ -178,6 +189,8 @@ import AUTH from 'src/services/auth'
 import CONFIG from 'src/config.js'
 import COMMON from 'src/common.js'
 import Pager from 'src/components/increment/generic/pager/Pager.vue'
+import Confirmation from 'src/components/increment/generic/modal/Confirmation.vue'
+import MerchantInfo from 'src/modules/admin/MerchantInfo.vue'
 export default{
   mounted(){
     if(this.user.type !== 'ADMIN' && this.user.type !== 'BUSINESS_ADMIN' && this.user.type !== 'ACCOUNTING' && this.user.type !== 'MKTG'){
@@ -276,26 +289,34 @@ export default{
     'basic-filter': require('components/increment/generic/filter/Basic.vue'),
     'google-autocomplete-location': require('src/components/increment/generic/location/GooglePlacesAutoComplete.vue'),
     'management-options': require('modules/admin/Menu.vue'),
-    Pager
+    Pager,
+    Confirmation,
+    MerchantInfo
   },
   methods: {
-    validateAccount(item){
+    confirm(e){
       let parameter = {
-        id: item.id,
+        id: e.id.id,
         status: 'VERIFIED'
       }
       $('#loading').css({display: 'block'})
       this.APIRequest('accounts/update_verification', parameter).then(response => {
         $('#loading').css({display: 'none'})
-        this.retrieve({created_at: 'desc'}, {column: 'created_at', value: ''})
+        this.$refs.merchantInfo.retrieve(e.id)
       })
+    },
+    validateAccount(item){
+      if(item.account_type === 'MERCHANT' && item.status !== 'VERIFIED'){
+        this.$refs.confirms.show(item)
+      }else if(item.account_type === 'MERCHANT' && item.status === 'VERIFIED'){
+        this.$refs.merchantInfo.retrieve(item)
+      }
     },
     validateMerchant(item){
       let parameter = {
         account_id: item.id,
         status: 'verified'
       }
-      // $('#loading').css({display: 'block'})
       this.APIRequest('merchants/update_by_verification', parameter).then(response => {
         $('#loading').css({display: 'none'})
         this.retrieve({created_at: 'desc'}, {column: 'created_at', value: ''})
