@@ -8,37 +8,40 @@
       @changeStyle="manageGrid($event)"
       :grid="['th-large', 'list']">
     </filter-product>
-    <div class="products-holder" v-for="item, index in data" @click="redirect('/product/edit/' + item.code)" v-if="listStyle === 'columns'">
-      <div class="products-image">
-        <img :src="config.BACKEND_URL + item.featured[0].url" v-if="item.featured !== null && getFileType(item.featured[0].url) === 'img'">
-        <i class="fa fa-image" v-else></i>
-      </div>
-      <div class="products-details">
-        <div class="products-title" :style="{width: item.price === null ? '100%' : '100%'}">
-          <span v-if="item.price !== null ">
-            <label class="text-primary" style="padding-top: 5px;" v-if="item.price.length === 1"><b>{{currency.displayWithCurrency(item.price[0].price, item.price[0].currency)}}</b></label>
-            <label class="text-primary" style="padding-top: 5px;" v-if=" item.price.length > 1"><b>{{item.price[0].currency}} {{item.price[item.price.length - 1].price + ' - ' + item.price[0].price}}</b></label>
-          </span>
-       <label style="padding-bottom: 5px;"><b>{{item.title}}</b></label>
-        </div>  
-        <!-- <div class="products-price" v-if="item.price === null">
-          <label v-if="item.price !== null">
-            <label v-if="item.price.length === 1">PHP {{item.price[0].price}}</label>
-            <label v-if="item.price.length > 1">PHP {{item.price[item.price.length - 1].price + ' - ' + item.price[0].price}}</label>
-          </label>
-        </div> -->
+    <div class="row">
+       <div class="products-holder" v-for="item, index in data" @click="redirect('/product/edit/' + item.code)" v-if="listStyle === 'list'">
+        <div class="products-image">
+          <img :src="config.BACKEND_URL + item.featured[0].url" v-if="item.featured !== null && getFileType(item.featured[0].url) === 'img'">
+          <i class="fa fa-image" v-else></i>
+        </div>
+        <div class="products-details">
+          <div class="products-title" :style="{width: item.price === null ? '100%' : '100%'}">
+            <span v-if="item.price !== null ">
+              <label class="text-primary" style="padding-top: 5px;" v-if="item.price.length === 1"><b>{{currency.displayWithCurrency(item.price[0].price, item.price[0].currency)}}</b></label>
+              <label class="text-primary" style="padding-top: 5px;" v-if=" item.price.length > 1"><b>{{item.price[0].currency}} {{item.price[item.price.length - 1].price + ' - ' + item.price[0].price}}</b></label>
+            </span>
+            <label style="padding-bottom: 5px;"><b>{{item.title}}</b></label>
+          </div>  
+          <!-- <div class="products-price" v-if="item.price === null">
+            <label v-if="item.price !== null">
+              <label v-if="item.price.length === 1">PHP {{item.price[0].price}}</label>
+              <label v-if="item.price.length > 1">PHP {{item.price[item.price.length - 1].price + ' - ' + item.price[0].price}}</label>
+            </label>
+          </div> -->
+        </div>
       </div>
     </div>
+  
+   
 
-
-
-    <table-view :data="data" v-if="listStyle === 'list' && data !== null" :type="'products'"></table-view>
-    <Pager
+    <table-view :data="data" v-if="listStyle === 'columns' && data !== null" :type="'products'"></table-view>
+   
+       <Pager
       :pages="numPages"
       :active="activePage"
       :limit="limit"
       v-if="data !== null"
-    />
+      />
     <empty v-if="data === null" :title="empty.title" :action="empty.guide"></empty>
 	</div>
 </template>
@@ -198,7 +201,7 @@ export default {
       data: null,
       selectedItem: null,
       selectedIndex: null,
-      listStyle: 'list',
+      listStyle: 'columns',
       type: null,
       category: [{
         title: 'Product',
