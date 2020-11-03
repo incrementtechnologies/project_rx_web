@@ -144,7 +144,7 @@ export default {
   },
   headerFlag: {
     messenger: false,
-    notification: false,
+    notification: true,
     cart: false
   }
 }

@@ -60,7 +60,7 @@
                       <span class="notification-description">{{item.description}}</span>
                       <span class="notification-date">Posted on {{item.created_at_human}}</span>
                     </span>
-                    <div class="text-center font-weight-bold">You have no notifications!</div>
+                    <div v-if="user.notifications.data === null" class="text-center font-weight-bold">You have no notifications!</div>
                   </span>
               </div>
 
@@ -129,7 +129,7 @@
                         <label>Documents</label>
                       </span>
                       <!--GUIDE-->
-      <!--                 <span class="dropdown-item" @click="openModal('#guideModal')">
+                      <!-- <span class="dropdown-item" @click="openModal('#guideModal')">
                         <i class="far fa-question-circle"></i>
                         <label>Guide</label>
                       </span> -->
