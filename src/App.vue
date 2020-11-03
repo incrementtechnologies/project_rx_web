@@ -306,7 +306,7 @@ export default {
     'terms-and-conditions': () => import('modules/docs/TermsAndConditions.vue'),
     'faq': () => import('modules/docs/Faq.vue'),
     'return-policy': () => import('modules/docs/ReturnPolicy.vue'),
-    'refund-policy': () => import('modules/docs/RefundPolicy.vue'),
+    'refund-policy': () => import('modules/docs/CancellationAndRefundPolicy.vue'),
     'partners-payout-policy': () => import('modules/docs/PartnersPayoutPolicy.vue'),
     'guide': () => import('modules/guide/Guide.vue'),
     'support-messenger': () => import('components/increment/support/Support.vue'),
