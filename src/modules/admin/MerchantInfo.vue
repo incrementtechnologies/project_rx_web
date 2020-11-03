@@ -43,12 +43,12 @@
             <p v-else><i class="fas fa-address-card"></i>  &nbsp;No address given</p>
             <p v-if="data.prefix !== null"><i class="fas fa-user"></i>  &nbsp;{{ data.prefix }}</p>
             <p v-else><i class="fas fa-user"></i>  &nbsp;No PREFIX given</p>
-            <p v-if="scheduleTypeSelected !== null"><i class="fas fa-calendar-alt"></i>  &nbsp;{{ scheduleTypeSelected }}</p>
-            <p v-else><i class="fas fa-calendar-alt"></i>  &nbsp;No schedule type</p>
-          </div>
-          <div class="col-6">
             <p v-if="daysSelected !== null"><i class="fas fa-calendar-day"></i>  &nbsp;{{ daysSelected }}</p>
             <p v-else><i class="fas fa-calendar-day"></i>  &nbsp;No days given</p>
+          </div>
+          <div class="col-6">
+            <p v-if="scheduleTypeSelected !== null"><i class="fas fa-calendar-alt"></i>  &nbsp;{{ scheduleTypeSelected }}</p>
+            <p v-else><i class="fas fa-calendar-alt"></i>  &nbsp;No schedule type</p>
             <p v-if="startTime !== null && endTime !== null"><i class="fas fa-clock"></i>  &nbsp;{{ startTime }} - {{ endTime }}</p>
             <p v-else><i class="fas fa-clock"></i>  &nbsp;No start or end time given</p>
           </div>
@@ -141,7 +141,6 @@ export default {
       }
       $('#loading').css({display: 'block'})
       this.APIRequest('merchants/retrieve', parameter).then(response => {
-        console.log(response.data, 'dfghjkl')
         if(response.data.length > 0){
           this.data = response.data[0]
           this.createFlag = false

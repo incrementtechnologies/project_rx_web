@@ -26,7 +26,7 @@
         <tr v-for="(item, index) in data" :key="index">
           <td>{{item.created_at}}</td>
           <td>
-            <label class="action-link text-primary">
+            <label class="action-link text-primary" @click="profile(item)">
               <!-- {{item.account.location !== null ? '(' + item.account.location.code + ')' : ''}} -->
               {{item.username}}
             </label>
@@ -51,8 +51,8 @@
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" v-if="item.account_type !== 'USER'" @click="showAddressModal(item)"><i class="fa fa-map-marker-alt"></i> Scope location</a>
-                <a class="dropdown-item" @click="validateAccount(item)"><i class="fa fa-map-marker-alt"></i> Validate Account</a>
-                <a class="dropdown-item" @click="validateMerchant(item)"><i class="fa fa-map-marker-alt"></i> Validate Merchant</a>
+                <a class="dropdown-item" v-if="item.status !== 'VERIFIED' && item.account_type !== 'MERCHANT'" @click="validateAccount(item)"><i class="fa fa-map-marker-alt"></i> Validate Account</a>
+                <a class="dropdown-item" v-if="item.status !== 'VERIFIED' && item.account_type === 'MERCHANT'" @click="validateAccount(item)"><i class="fa fa-map-marker-alt"></i> Validate Merchant</a>
               </div>
             </div>
           </td>
@@ -110,7 +110,7 @@
     <Confirmation
     ref="confirms"
     :title="'Validation'"
-    :message="'Are you sure you want to validate this merchant?'"
+    :message="'Are you sure you want to validate?'"
     @onConfirm="confirm($event)"
     >
     </Confirmation>
@@ -281,7 +281,9 @@ export default{
       },
       locationFlag: 'autocomplete',
       selectedLocation: null,
-      locationMessage: null
+      locationMessage: null,
+      show: true,
+      show1: true
     }
   },
   components: {
@@ -294,22 +296,29 @@ export default{
     MerchantInfo
   },
   methods: {
-    confirm(e){
-      let parameter = {
-        id: e.id.id,
-        status: 'VERIFIED'
+    profile(item){
+      if(item.account_type === 'MERCHANT'){
+        this.$refs.merchantInfo.retrieve(item)
       }
-      $('#loading').css({display: 'block'})
-      this.APIRequest('accounts/update_verification', parameter).then(response => {
-        $('#loading').css({display: 'none'})
-        this.$refs.merchantInfo.retrieve(e.id)
-      })
+    },
+    confirm(e){
+      if(e.id.account_type === 'MERCHANT'){
+        this.validateMerchant(e.id)
+      }else{
+        let parameter = {
+          id: e.id.id,
+          status: 'VERIFIED'
+        }
+        $('#loading').css({display: 'block'})
+        this.APIRequest('accounts/update_verification', parameter).then(response => {
+          $('#loading').css({display: 'none'})
+          this.retrieve({created_at: 'desc'}, {column: 'created_at', value: ''})
+        })
+      }
     },
     validateAccount(item){
-      if(item.account_type === 'MERCHANT' && item.status !== 'VERIFIED'){
+      if(item.status !== 'VERIFIED'){
         this.$refs.confirms.show(item)
-      }else if(item.account_type === 'MERCHANT' && item.status === 'VERIFIED'){
-        this.$refs.merchantInfo.retrieve(item)
       }
     },
     validateMerchant(item){

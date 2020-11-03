@@ -10,9 +10,6 @@
           </div>
           <div class="modal-body">
             <div class="guide-holder">
-              <!-- <p><strong>Hi {{user.username}}! Welcome to {{common.APP_NAME}} by {{common.COMPANY}}!</strong></p>
-              <p v-if="guide !== null" v-html="guide">
-              </p> -->
               <ul class="first-ul">
                 <li><strong>MERCHANT GUIDE</strong></li>
                 <li>
