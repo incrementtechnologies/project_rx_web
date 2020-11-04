@@ -91,6 +91,9 @@ export default {
       }, {
         title: 'Partners',
         route: '/admin/partners'
+      }, {
+        title: 'Transfer',
+        route: '/admin/transfer'
       }],
       optionsMktg: [{
         title: 'Delivery Fee',
@@ -111,6 +114,9 @@ export default {
       }, {
         title: 'Withdrawal Request',
         route: '/admin/withdrawalRequest'
+      }, {
+        title: 'Transfer',
+        route: '/admin/transfer'
       }],
       selected: {
         title: 'Accounts',
