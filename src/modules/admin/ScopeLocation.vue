@@ -69,7 +69,7 @@ import Confirmation from 'src/components/increment/generic/modal/Confirmation.vu
 import propertyModal from './ScopeLocation.js'
 export default{
   mounted(){
-    if(this.user.type !== 'ADMIN'){
+    if(this.user.type !== 'ADMIN' && this.user.type !== 'BUSINESS_ADMIN'){
       ROUTER.push('/marketplace')
     }
     this.retrieve()
