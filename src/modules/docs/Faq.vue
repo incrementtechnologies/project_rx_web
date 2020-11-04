@@ -138,7 +138,6 @@ export default {
         }]
       }
       this.APIRequest('payloads/retrieve', parameter).then(response => {
-        console.log(response.data)
         if(response.data.length > 0){
           for(let i in response.data){
             let data = JSON.parse(response.data[i].payload_value)
