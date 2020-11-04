@@ -5,8 +5,12 @@
         <li class="title"><b>{{common.APP_NAME}}</b></li>
         <li><a v-on:click="redirect('/')">Home</a></li>
         <li><a v-on:click="redirect('/')">About Us</a></li>
-        <li><a v-on:click="redirect('/')">Contact Us</a></li>
-      </ul>
+        <li>Contact Us</li>
+        <ul class="contact-us-details">
+          <span><a style="color:white" href="tel:+639635397685"><i class='fa fa-phone fa-flip-horizontal'></i>&nbsp;&nbsp;(+63) 963-539-7685</a></span><br>
+          <span><a style="color:white" href="mailto:marketing.runwayexpress@gmail.com"><i class="fa">&#xf0e0;</i>&nbsp;&nbsp;marketing.runwayexpress@gmail.com</a></span>
+        </ul> 
+      </ul> 
       <ul class="footer-widget">
         <li class="title"><b>Privacy and Terms</b></li>
         <li><a @click="openModal('#termsAndConditionsModal')">Terms & Conditions</a></li>
@@ -86,7 +90,7 @@ footer {
   margin-bottom: 0px;
   position:relative;
 }
-.footer-widget li{
+.footer-widget li, .contact-us-details span{
   list-style: none;
   padding: 5px 10px 10px 10px;
   float: left;
@@ -145,6 +149,7 @@ footer-widget .title:hover{
 .contact-us li .fa-mobile-alt{
   padding-right: 12px;
 }
+
 .copyright{
   width: 100%;
   float: left;
@@ -172,6 +177,12 @@ footer-widget .title:hover{
     width: 20%;
   }
 }
+
+.contact-us-details{
+  margin-left: -20px;
+}
+
+
 </style>
 <script>
 import ROUTER from 'src/router'
