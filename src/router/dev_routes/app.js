@@ -246,6 +246,14 @@ export default{
     meta: {
       tokenRequired: true
     }
+  },
+  {
+    path: '/aboutUs',
+    name: 'aboutUs',
+    component: resolve => require(['modules/docs/AboutUs.vue'], resolve),
+    meta: {
+      tokenRequired: false
+    }
   }
   ]
 }

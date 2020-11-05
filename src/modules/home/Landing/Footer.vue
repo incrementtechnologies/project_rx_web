@@ -4,7 +4,7 @@
       <ul class="footer-widget contact-us"> 
         <li class="title"><b>{{common.APP_NAME}}</b></li>
         <li><a v-on:click="redirect('/')">Home</a></li>
-        <li><a v-on:click="redirect('/')">About Us</a></li>
+        <li><a v-on:click="redirect('/aboutUs')">About Us</a></li>
         <li><a v-on:click="redirect('/')">Contact Us</a></li>
       </ul>
       <ul class="footer-widget">
