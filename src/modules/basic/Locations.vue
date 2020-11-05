@@ -299,6 +299,7 @@ export default {
     hide() {
       $('#edit').modal('hide')
       $('#show').modal('hide')
+      $('#newLocation').modal('hide')
       this.selectedBranch = null
       this.editFlag = false
     },
@@ -344,8 +345,9 @@ export default {
         this.APIRequest('locations/create', par).then(response => {
           this.location = null
           $('#branch').val('')
-          this.retrieve()
+          console.log('Please hide')
           this.hide()
+          this.retrieve()
         })
       }
     },
