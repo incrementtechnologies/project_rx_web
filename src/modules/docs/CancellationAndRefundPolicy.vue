@@ -144,6 +144,45 @@
                   Runway Express will refund the total price of any cancelled order to the credit or debit card used to place the order.
                 </li>
               </ul>
+              <li><strong>TIMELINE</strong></li>
+              <ul class="second-ul">
+                <li>
+                  All refund amounts shall be credited to your account within 7 working days in accordance with the terms that may be stipulated by the bank which has issued the credit / debit card And we collect processing fee.
+                </li>
+              </ul>
+              <li><strong>LATE OR MISSING REFUNDS (if applicable)</strong></li>
+              <ul class="second-ul">
+                <li>
+                  If you haven’t received a refund yet, first check your bank account again.
+                </li>
+                <li>
+                  Then contact your credit card company, it may take some time before your refund is officially posted.
+                </li>
+                <li>
+                  Next, contact your bank. There is often some processing time before a refund is posted.
+                </li>
+                <li>
+                  If you’ve done all of this and you still have not received your refund yet, please contact us at support@runwayexpress.com.
+                </li>
+              </ul>
+              <li><strong>SALE ITEMS (if applicable)</strong></li>
+              <ul class="second-ul">
+                <li>Only regular priced items may be refunded, unfortunately, sale items cannot be refunded.</li>
+              </ul>
+              <li><strong>EXCHANGES (if applicable)</strong></li>
+              <ul class="second-ul">
+                <li>We only replace items if they are defective or damaged, tampered.  If you need to exchange it for the same item, send us an email at support@runwayexpress.com and send your item to R.E main office Davao City, 8000, Philippines.</li>
+              </ul>
+              <li><strong>SHIPPING</strong></li>
+              <ul class="second-ul">
+                <li>
+                  To return your product, you should mail your product to R.E main office Davao City, 8000, Philippines.
+                  You will be responsible for paying for your own shipping costs for returning your item. Shipping costs are non-refundable. If you receive a refund, the cost of return shipping will be deducted from your refund.
+                </li>
+              </ul>
+              <li>
+                NOTE: If there is any issue with the  delivery  and you are outside of the window for a refund through Self-Help, please <a href="help.doordash.com">contact customer</a> support as soon as possible so we may assist you. 
+              </li>
             </ul>
           </div>
         </div>
