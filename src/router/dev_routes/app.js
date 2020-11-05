@@ -253,6 +253,13 @@ export default{
     meta: {
       tokenRequired: true
     }
+  }, {
+    path: '/admin/transfer/create',
+    name: 'createAdminTransfer',
+    component: resolve => require(['modules/admin/TransferCreate.vue'], resolve),
+    meta: {
+      tokenRequired: true
+    }
   }
   ]
 }

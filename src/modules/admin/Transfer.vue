@@ -34,12 +34,11 @@
       </div>
       <div class="col-md-8 col-sm-12 row">
         <div class="col-12" v-if="balance !== null && largest.balance > 0">
-          <button type="button" class="btn btn-outline-primary rounded-pill pull-right" @click="$refs.funds.show()">Transfer Funds</button>
+          <button type="button" class="btn btn-outline-primary rounded-pill pull-right" @click="redirect('/admin/transfer/create')">Transfer Funds</button>
         </div>
         <empty v-if="data === null" :title="'No transaction yet!'" :action="'Start transfering funds.'"></empty>
       </div>
     </div>
-    <increment-modal :property="modalProperty"></increment-modal>
   </div>
 </template>
 <style lang="scss" scoped> 
@@ -81,7 +80,6 @@ export default {
     'empty': require('components/increment/generic/empty/Empty.vue'),
     'basic-filter': require('components/increment/generic/filter/Basic.vue'),
     'management-options': require('modules/admin/Menu.vue'),
-    'increment-modal': require('components/increment/generic/modal/Modal.vue'),
     Pager
   },
   mounted(){
@@ -91,6 +89,9 @@ export default {
     this.retrieve()
   },
   methods: {
+    redirect(params){
+      ROUTER.push(params)
+    },
     retrieve() {
       let par = {
         account_id: this.user.userID,
