@@ -246,6 +246,7 @@ export default{
     meta: {
       tokenRequired: true
     }
+<<<<<<< HEAD
   },
   {
     path: '/aboutUs',
@@ -253,6 +254,14 @@ export default{
     component: resolve => require(['modules/docs/AboutUs.vue'], resolve),
     meta: {
       tokenRequired: false
+=======
+  }, {
+    path: '/admin/transfer',
+    name: 'adminTransfer',
+    component: resolve => require(['modules/admin/Transfer.vue'], resolve),
+    meta: {
+      tokenRequired: true
+>>>>>>> fdeb582c12c947c2b68357205940a6d77aeb52ad
     }
   }
   ]

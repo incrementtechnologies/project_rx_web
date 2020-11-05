@@ -86,7 +86,7 @@ footer {
   margin-bottom: 0px;
   position:relative;
 }
-.footer-widget li{
+.footer-widget li, .contact-us-details span{
   list-style: none;
   padding: 5px 10px 10px 10px;
   float: left;
@@ -145,6 +145,7 @@ footer-widget .title:hover{
 .contact-us li .fa-mobile-alt{
   padding-right: 12px;
 }
+
 .copyright{
   width: 100%;
   float: left;
@@ -172,6 +173,12 @@ footer-widget .title:hover{
     width: 20%;
   }
 }
+
+.contact-us-details{
+  margin-left: -20px;
+}
+
+
 </style>
 <script>
 import ROUTER from 'src/router'
