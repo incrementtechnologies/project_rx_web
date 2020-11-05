@@ -34,7 +34,8 @@
     <refund-policy></refund-policy>
     <partners-payout-policy></partners-payout-policy>
 
-    <guide></guide>
+    <merchant-guide></merchant-guide>
+    <rider-guide></rider-guide>
   </div>
 </template>
 <style lang="scss">
@@ -308,7 +309,8 @@ export default {
     'return-policy': () => import('modules/docs/ReturnPolicy.vue'),
     'refund-policy': () => import('modules/docs/CancellationAndRefundPolicy.vue'),
     'partners-payout-policy': () => import('modules/docs/PartnersPayoutPolicy.vue'),
-    'guide': () => import('modules/guide/Guide.vue'),
+    'merchant-guide': () => import('modules/guide/MerchantGuide.vue'),
+    'rider-guide': () => import('modules/guide/RiderGuide.vue'),
     'support-messenger': () => import('components/increment/support/Support.vue'),
     'tutorial': () => import('components/increment/generic/tutorial/Tutorial.vue'),
     'system-notification': require('components/increment/generic/system/Notifications.vue'),
