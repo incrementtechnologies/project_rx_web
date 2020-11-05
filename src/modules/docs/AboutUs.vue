@@ -1,6 +1,6 @@
 <template>
   <div class="container col-md-11 col-sm-12 mx-auto mt-4 row text-center">
-    <div class="guide-holder">
+    <div class="about-holder">
       <ul class="first-ul">
         <li>
           <strong>ABOUT US</strong>
@@ -55,7 +55,7 @@
 </template>
 <style scoped lang="scss">
 @import "~assets/style/colors.scss";
-.guide-holder {
+.about-holder {
   margin-top: 22px;
   width: 90%;
   float: left;
