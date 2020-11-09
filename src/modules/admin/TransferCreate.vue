@@ -27,6 +27,15 @@
         </div>
       </div>
       <div class="form-group" v-if="account !== null">
+        <div class="form-group">
+          <label>Transaction type</label>
+          <div class="input-group">
+            <select class="form-control form-control-custom" v-model="type">
+              <option value="AUTOMATIC">AUTOMATIC</option>
+              <option value="MANUAL">MANUAL</option>
+            </select>
+          </div>
+        </div>
 
         <div class="form-group">
           <label>Currency</label>
@@ -51,10 +60,20 @@
           </div>
         </div>
 
+        <div class="form-group" v-if="type === 'AUTOMATIC'">
+          <label>From Description</label>
+          <div class="input-group">
+            <input type="text" v-model="fromDescription" class="form-control form-control-custom" placeholder="Account Transfer description(From)" />
+          </div>
+        </div>
+
         <div class="form-group">
           <label>Payload</label>
           <div class="input-group">
-            <input type="text" v-model="payload" class="form-control form-control-custom" placeholder="Transfer payload" />
+            <select class="form-control form-control-custom" v-model="payload">
+              <option value="Sales">Sales</option>
+              <option value="Others">Others</option>
+            </select>
           </div>
         </div>
 
@@ -66,12 +85,19 @@
         </div>
 
         <div class="form-group">
-          <button class="btn btn-primary pull-right" @click="$refs.otpModal.show()">Continue</button>
+          <button class="btn btn-primary pull-right" @click="showConfirmation()">Continue</button>
+          <!-- <button class="btn btn-primary pull-right" @click="$refs.otpModal.show()">Continue</button> -->
         </div>
        
       </div>
     </div>
     <otp-modal ref="otpModal"></otp-modal>
+    <Confirmation
+      :title="'Confirmation'"
+      :message="'Are you sure you want this transaction as ' + type + '?'"
+      ref="confirmation"
+      @onConfirm="transfer"
+      />
   </div>
 </template>
 <style scoped lang="scss">
@@ -99,6 +125,7 @@ import AUTH from 'src/services/auth'
 import CONFIG from 'src/config.js'
 import COMMON from 'src/common.js'
 import COUNTRIES from 'src/countries.js'
+import Confirmation from 'src/components/increment/generic/modal/Confirmation.vue'
 export default {
   mounted(){
   },
@@ -114,12 +141,15 @@ export default {
       countries: COUNTRIES.list,
       description: null,
       payload: null,
-      payloadValue: null
+      payloadValue: null,
+      type: 'AUTOMATIC',
+      fromDescription: null
     }
   },
   props: [],
   components: {
-    'otp-modal': require('components/increment/generic/otp/Otp.vue')
+    'otp-modal': require('components/increment/generic/otp/Otp.vue'),
+    Confirmation
   },
   methods: {
     hideModal(){
@@ -137,7 +167,7 @@ export default {
       this.hideModal()
     },
     successOTP(){
-      //
+      this.transfer()
     },
     retrieveAccount(){
       if(this.code === null){
@@ -155,6 +185,31 @@ export default {
           this.account = response.data[0]
         }else{
           this.account = null
+        }
+      })
+    },
+    showConfirmation(){
+      this.$refs.confirmation.show(null)
+    },
+    transfer(){
+      if(this.code === null){
+        return null
+      }
+      let parameter = {
+        from_account_id: this.user.id,
+        from_account_code: this.user.code,
+        currency: this.currency,
+        account_id: this.account.id,
+        account_code: this.account.code,
+        payment_payload: this.payload,
+        payment_payload_value: this.payloadValue,
+        description: this.description,
+        from_description: this.fromDescription,
+        amount: this.amount
+      }
+      this.APIRequest('ledgers/transfer', parameter).then(response => {
+        if(response.data.length > 0){
+        }else{
         }
       })
     }
