@@ -11,14 +11,6 @@
       @changeStyle="manageGrid($event)"
       :grid="['list', 'th-large']"></basic-filter>
 
-    <span v-if="successMessage !== null" class="text-primary text-center incre-row" style="width: 100%; height: 30px; background-color: $warning">
-        <label class="incre-row" style="color: #FF5B04;">{{successMessage}}</label>
-    </span>
-
-    <span v-if="errorMessage !== null" class="text-primary text-center incre-row" style="width: 100%; height: 10px; background-color: orange">
-      <label class="incre-row" style="color: white; margin-top: 1%">{{errorMessage}}</label>
-    </span>
-
     <table class="table table-bordered table-responsive" v-if="data !== null">
       <thead class="bg-primary">
         <tr>
@@ -205,8 +197,6 @@ export default{
   },
   data(){
     return {
-      successMessage: null,
-      errorMessage: null,
       user: AUTH.user,
       data: null,
       auth: AUTH,
@@ -265,6 +255,7 @@ export default{
       activePage: 1,
       numPages: null,
       selectedItem: null,
+      errorMessage: null,
       location: null,
       scopeLocation: null,
       googleProperty: {
@@ -309,10 +300,6 @@ export default{
       this.location = null
       this.locationMessage = null
       this.retrieveLocation(item)
-    },
-    showModal(item){
-      // this.id = id
-      $('#addAddressAccount').modal('show')
     },
     manageLocation(location){
       this.location = location

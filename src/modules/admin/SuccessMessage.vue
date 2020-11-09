@@ -50,7 +50,6 @@ export default {
   },
   methods: {
     showModal(param){
-      console.log('nka sulod')
       this.successMessage = param
       $('#success').modal('show')
     },

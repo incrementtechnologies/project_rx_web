@@ -35,7 +35,7 @@
         <br>
         <center>
           <div style="margin-right: 15%; margin-left: 15%;">
-              <button type="button" class="btn btn-primary" @click="scopeLocation()"><i class="fa fa-map-marker-alt"></i> Scope Location</button>
+              <button type="button" class="btn btn-primary" @click="scopeLocation(storeItem)"><i class="fa fa-map-marker-alt"></i> Scope Location</button>
               <button type="button" v-if="storeItem.status !== 'VERIFIED'" class="btn btn-primary" @click="validateAccount()"><i class="fa fa-map-marker-alt"></i> Validate Account</button>
               <button type="button" v-if="storeItem.status !== 'VERIFIED'" class="btn btn-primary" @click="validateMerchant()"><i class="fa fa-map-marker-alt"></i> Validate Merchant</button>
           </div>
@@ -220,7 +220,7 @@ export default {
       })
     },
     scopeLocation(storeItem){
-      this.$parent.showModal(this.storeItem)
+      this.$parent.showAddressModal(this.storeItem)
     },
     validateMerchant(){
       this.validate = 'merchant'
@@ -237,7 +237,6 @@ export default {
           status: 'VERIFIED'
         }
         this.APIRequest('merchants/update_by_verification', parameter).then(response => {
-          console.log('asdf', response.data)
           $('#loading').css({display: 'none'})
           if(response.data === true){
             this.$parent.retrieve({created_at: 'desc'}, {column: 'created_at', value: ''})
