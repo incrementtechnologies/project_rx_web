@@ -25,7 +25,7 @@
           </td>
           <td>{{currency.displayWithCurrency(item.amount, item.currency)}}</td>
           <td>
-            <label class="badge text-uppercase" :class="{'badge-warning': item.status === 'pending', 'badge-success': item.status === 'completed'}">{{item.status}}</label>
+            <label class="badge text-uppercase" :class="{'badge-warning': item.status === 'pending' || item.status === 'processing', 'badge-success': item.status === 'completed', 'badge-danger': item.status === 'declined'}">{{item.status}}</label>
           </td>
           <td>
               <div class="dropdown">
@@ -33,8 +33,9 @@
                 <i class="fa fa-cog"></i>
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" @click="changeStatus(item, 'CANCEL')">  CANCEL</a>
-                <a class="dropdown-item" @click="changeStatus(item, 'COMPLETE')">  COMPLETE</a>
+                <a class="dropdown-item" @click="change(item, 'PROCESSING')"><i class="fas fa-hand-holding-usd"></i>Processing</a>
+                <a class="dropdown-item" @click="changeStatus(item, 'DECLINE')"><i class="fa fa-times"></i>  &nbsp;&nbsp;&nbsp;Decline</a>
+                <a class="dropdown-item" @click="changeStatuss(item, 'COMPLETE')"><i class="fa fa-check"></i> &nbsp;&nbsp;Complete</a>
               </div>
             </div>
           </td>
@@ -43,11 +44,18 @@
     </table>
 
     <Pager
-        :pages="numPages"
-        :active="activePage"
-        :limit="limit"
-        v-if="data !== null"
-        />
+      :pages="numPages"
+      :active="activePage"
+      :limit="limit"
+      v-if="data !== null"
+      />
+
+    <Confirmations
+    ref="confirms"
+    :title="'Confirmation'"
+    :message="confirmAction === 'complete' || confirmAction === 'processing' ? 'Are you sure you want to deal with this request?' : 'Are you sure you want to decline this request?'"
+    @onConfirm="confirm($event)"
+    />
 
     <empty v-if="data === null" :title="'No deposits available!'" :action="'Waiting for request.'"></empty>
   </div>
@@ -69,6 +77,7 @@ import CONFIG from 'src/config.js'
 import CURRENCY from 'src/services/currency.js'
 import COMMON from 'src/common.js'
 import Pager from 'src/components/increment/generic/pager/Pager.vue'
+import Confirmations from 'src/components/increment/generic/modal/Confirmation.vue'
 import propertyModal from './DeliveryFeeModal.js'
 export default{
   mounted(){
@@ -85,7 +94,8 @@ export default{
       limit: 5,
       activePage: 1,
       numPages: null,
-      currency: CURRENCY
+      currency: CURRENCY,
+      confirmAction: ''
     }
   },
   components: {
@@ -93,7 +103,8 @@ export default{
     'basic-filter': require('components/increment/generic/filter/Basic.vue'),
     'management-options': require('modules/admin/Menu.vue'),
     'increment-modal': require('components/increment/generic/modal/Modal.vue'),
-    Pager
+    Pager,
+    Confirmations
   },
   methods: {
     retrieve(){
@@ -112,6 +123,72 @@ export default{
         }else{
           this.data = null
           this.numPages = null
+        }
+      })
+    },
+    change(item){
+      this.confirmAction = 'processing'
+      this.id = item.id
+      this.$refs.confirms.show(item)
+    },
+    changeStatus(item){
+      this.confirmAction = 'decline'
+      this.id = item.id
+      this.$refs.confirms.show(item)
+    },
+    changeStatuss(item){
+      this.confirmAction = 'complete'
+      this.id = item.id
+      this.$refs.confirms.show(item)
+    },
+    confirm(item){
+      if(this.confirmAction === 'complete'){
+        this.complete(item)
+      }else if(this.confirmAction === 'decline'){
+        this.decline(item)
+      }else{
+        this.processing(item)
+      }
+    },
+    complete(item){
+      let parameter = {
+        id: item.id.id,
+        status: 'completed'
+      }
+      this.APIRequest('deposits/update', parameter).then(response => {
+        if(response.data === true){
+          item.status = 'completed'
+          this.retrieve()
+        }else{
+          response.data = null
+        }
+      })
+    },
+    decline(item){
+      let parameter = {
+        id: item.id.id,
+        status: 'declined'
+      }
+      this.APIRequest('deposits/update', parameter).then(response => {
+        if(response.data === true){
+          item.status = 'declined'
+          this.retrieve()
+        }else{
+          response.data = null
+        }
+      })
+    },
+    processing(item){
+      let parameter = {
+        id: item.id.id,
+        status: 'processing'
+      }
+      this.APIRequest('deposits/update', parameter).then(response => {
+        if(response.data === true){
+          item.status = 'processing'
+          this.retrieve()
+        }else{
+          response.data = null
         }
       })
     }
