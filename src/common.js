@@ -139,8 +139,8 @@ export default {
   passwordLimit: 8,
   alertFlag: false,
   appUrl: {
-    android: 'https://apps.apple.com/us/app/runway-express/id1533076707',
-    ios: 'https://appstore.test'
+    android: 'https://play.google.com/store/apps/details?id=com.runwayexpress',
+    ios: 'https://apps.apple.com/us/app/runway-express/id1533076707'
   },
   headerFlag: {
     messenger: false,
