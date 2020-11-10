@@ -10,7 +10,7 @@
       @changeSortEvent="retrieve($event.sort, $event.filter)"
       @changeStyle="manageGrid($event)"
       :grid="['list', 'th-large']"></basic-filter>
-    
+
     <table class="table table-bordered table-responsive" v-if="data !== null">
       <thead class="bg-primary">
         <tr>
@@ -19,7 +19,7 @@
           <td>Email</td>
           <td>Type</td>
           <td>Status</td>
-          <td>Actions</td>
+          <!-- <td>Actions</td> -->
         </tr>
       </thead>
       <tbody>
@@ -44,7 +44,7 @@
             </span>
           </td>
           <td>{{item.status}}</td>
-          <td>
+          <!-- <td>
             <div class="dropdown">
               <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-cog"></i>
@@ -55,7 +55,7 @@
                 <a class="dropdown-item" v-if="item.status !== 'VERIFIED' && item.account_type === 'MERCHANT'" @click="validateAccount(item)"><i class="fa fa-map-marker-alt"></i> Validate Merchant</a>
               </div>
             </div>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -67,6 +67,9 @@
       v-if="data !== null"
       />
 
+    <MerchantInfo
+    ref="merchantInfo"
+    ></MerchantInfo>
 
     <div class="modal fade" id="addAddressAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -106,18 +109,6 @@
         </div>
       </div>
     </div>
-
-    <Confirmation
-    ref="confirms"
-    :title="'Validation'"
-    :message="'Are you sure you want to validate?'"
-    @onConfirm="confirm($event)"
-    >
-    </Confirmation>
-
-    <MerchantInfo
-    ref="merchantInfo"
-    ></MerchantInfo>
 
     <empty v-if="data === null" :title="'No accounts available!'" :action="'Keep growing.'"></empty>
   </div>
@@ -189,7 +180,6 @@ import AUTH from 'src/services/auth'
 import CONFIG from 'src/config.js'
 import COMMON from 'src/common.js'
 import Pager from 'src/components/increment/generic/pager/Pager.vue'
-import Confirmation from 'src/components/increment/generic/modal/Confirmation.vue'
 import MerchantInfo from 'src/modules/admin/MerchantInfo.vue'
 export default{
   mounted(){
@@ -211,7 +201,6 @@ export default{
       data: null,
       auth: AUTH,
       selecteditem: null,
-      errorMessage: null,
       config: CONFIG,
       category: [{
         title: 'Sort by',
@@ -266,6 +255,7 @@ export default{
       activePage: 1,
       numPages: null,
       selectedItem: null,
+      errorMessage: null,
       location: null,
       scopeLocation: null,
       googleProperty: {
@@ -292,7 +282,6 @@ export default{
     'google-autocomplete-location': require('src/components/increment/generic/location/GooglePlacesAutoComplete.vue'),
     'management-options': require('modules/admin/Menu.vue'),
     Pager,
-    Confirmation,
     MerchantInfo
   },
   methods: {
@@ -300,36 +289,6 @@ export default{
       if(item.account_type === 'MERCHANT'){
         this.$refs.merchantInfo.retrieve(item)
       }
-    },
-    confirm(e){
-      if(e.id.account_type === 'MERCHANT'){
-        this.validateMerchant(e.id)
-      }else{
-        let parameter = {
-          id: e.id.id,
-          status: 'VERIFIED'
-        }
-        $('#loading').css({display: 'block'})
-        this.APIRequest('accounts/update_verification', parameter).then(response => {
-          $('#loading').css({display: 'none'})
-          this.retrieve({created_at: 'desc'}, {column: 'created_at', value: ''})
-        })
-      }
-    },
-    validateAccount(item){
-      if(item.status !== 'VERIFIED'){
-        this.$refs.confirms.show(item)
-      }
-    },
-    validateMerchant(item){
-      let parameter = {
-        account_id: item.id,
-        status: 'verified'
-      }
-      this.APIRequest('merchants/update_by_verification', parameter).then(response => {
-        $('#loading').css({display: 'none'})
-        this.retrieve({created_at: 'desc'}, {column: 'created_at', value: ''})
-      })
     },
     hideModal(id){
       this.selectedItem = null
