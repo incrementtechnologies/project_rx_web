@@ -46,8 +46,8 @@
             
               <div class="dropdown row col-auto h-100 align-items-center" v-bind:class="{'active-menu': notifFlag === true}" data-toggle="dropdown" id="notifications" aria-haspopup="true" aria-expanded="false" v-on:click="makeActive('notif')" v-bind:onkeypress="makeActive('')" v-if="common.headerFlag.notification === true"> 
                   <span>
-                    <i class="fa fa-bell text-white"></i>
-                    <label class="notifications badge-danger" v-if="parseInt(user.notifications.current) > 0">{{user.notifications.current}}</label>
+                    <i class="notification-bell fa fa-bell text-white lg"></i>
+                    <label class="notifications badge badge-success darken-1" v-if="parseInt(user.notifications.current) > 0">{{user.notifications.current}}</label>
                   </span>
                   <span class="dropdown-menu dropdown-menu-right dropdown-menu-notification" aria-labelledby="notifications">
                     <span class="notification-header" :class="[{'mb-3': user.notifications.data === null}]">
@@ -411,17 +411,21 @@
         padding: 12px 0 15px 0;
         font-size: 24px;
       }
-
-      .nav-item span .notifications{
-        color: #ffffff;
-        border-radius: 5px;
-        height: 18px;
-        width: 18px;
-        margin-left: -10px;
-        font-size: 10px;
-        margin-top: 15px;
+      .notifications{
+        position: absolute;
+        left: 25px;
+        top: 10px;
+        width: 17px;
+        height: 17px;
+        line-height: 11px;
+        background: green;
         text-align: center;
-        padding-top: 2px;
+        border-radius: 50%;
+        color:white;
+        font-size: 12px;
+      }
+      .notification-bell{
+        margin-top: 10px
       }
 
       .nav-item span .notifications:hover{
