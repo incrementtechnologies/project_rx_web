@@ -143,12 +143,14 @@ export default {
       payload: null,
       payloadValue: null,
       type: 'AUTOMATIC',
-      fromDescription: null
+      fromDescription: null,
+      stage: 1,
+      opt: null
     }
   },
   props: [],
   components: {
-    'otp-modal': require('components/increment/generic/otp/Otp.vue'),
+    'otp-modal': require('components/increment/generic/otp/OtpInput.vue'),
     Confirmation
   },
   methods: {
@@ -166,7 +168,9 @@ export default {
       this.id = null
       this.hideModal()
     },
-    successOTP(){
+    successOTP(otp){
+      console.log(otp)
+      this.otp = otp
       this.transfer()
     },
     retrieveAccount(){
@@ -192,11 +196,8 @@ export default {
       this.$refs.confirmation.show(null)
     },
     transfer(){
-      if(this.code === null){
-        return null
-      }
       let parameter = {
-        from_account_id: this.user.id,
+        from_account_id: this.user.userID,
         from_account_code: this.user.code,
         currency: this.currency,
         account_id: this.account.id,
@@ -205,10 +206,17 @@ export default {
         payment_payload_value: this.payloadValue,
         description: this.description,
         from_description: this.fromDescription,
-        amount: this.amount
+        amount: this.amount,
+        otp: this.otp,
+        stage: this.stage
       }
-      this.APIRequest('ledgers/transfer', parameter).then(response => {
-        if(response.data.length > 0){
+      this.APIRequest('ledger/transfer', parameter).then(response => {
+        this.stage = response.stage
+        if(response.error !== null){
+
+        }else if(response.stage === 2){
+          this.$refs.otpModal.show()
+        }else if(response.data.length > 0){
         }else{
         }
       })
