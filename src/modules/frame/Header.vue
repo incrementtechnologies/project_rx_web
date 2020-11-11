@@ -1018,6 +1018,11 @@
             .listen(COMMON.pusher.messages, e => {
               AUTH.addMessage(e.data)
             })
+            .listen(COMMON.pusher.accountStatus, e => {
+              if(this.user.type !== 'USER' && this.user.type !== 'MERCHANT' && this.user.type !== 'RIDER'){
+                AUTH.setStatus(e.data)
+              }
+            })
             .listen(COMMON.pusher.messageGroup, e => {
               if(parseInt(e.data.id) === AUTH.messenger.messengerGroupId){
                 console.log('group', e.data)

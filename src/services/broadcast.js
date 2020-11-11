@@ -10,17 +10,13 @@ import COMMON from 'src/common.js'
 import AUTH from 'src/services/auth'
 
 export default {
-  broadcastAccountStatus(id, flag) {
+  accountStatus(id, flag) {
+    let vue = new Vue()
     let parameter = {
-      account_id: id
+      id: id,
+      status: flag
     }
-    this.APIRequest('broadcasts/account_status', parameter).then(response => {
-      if(flag && response.data === null){
-        return 'ONLINE'
-      }
-      if(flag === false){
-        return 'OFFLINE'
-      }
+    vue.APIRequest('broadcasts/account_status', parameter).then(response => {
     })
   }
 }

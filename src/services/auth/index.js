@@ -7,6 +7,7 @@ import Echo from 'laravel-echo'
 import Pusher from 'pusher-js'
 import Config from 'src/config.js'
 import COMMON from 'src/common.js'
+import broadcast from 'src/services/broadcast.js'
 export default {
   user: {
     userID: 0,
@@ -35,8 +36,7 @@ export default {
     ledger: {
       amount: 0,
       currency: 'PHP'
-    },
-    onlineAccounts: []
+    }
   },
   messenger: {
     messages: [],
@@ -82,6 +82,8 @@ export default {
   },
   echo: null,
   currentPath: false,
+  broadcastInterval: null,
+  accounts: [],
   setUser(userID, username, email, type, status, profile, notifSetting, subAccount, code, location, flag, scopeLocation){
     if(userID === null){
       username = null
@@ -120,6 +122,9 @@ export default {
       setTimeout(() => {
         this.tokenData.loading = false
       }, 1000)
+    }
+    if(userID !== null){
+      broadcast.accountStatus(this.user.userID, 'ONLINE')
     }
   },
   getRedirectPerUserType(){
@@ -235,17 +240,20 @@ export default {
   },
   deaunthenticate(){
     console.log('logging out')
-    this.tokenData.loading = true
-    localStorage.removeItem('usertoken')
-    localStorage.removeItem('account_id')
-    localStorage.removeItem('google_code')
-    localStorage.removeItem('google_scope')
-    this.setUser(null)
-    let vue = new Vue()
-    vue.APIRequest('authenticate/invalidate')
-    this.clearNotifTimer()
-    this.tokenData.token = null
-    ROUTER.go('/')
+    broadcast.accountStatus(this.user.userID, 'OFFLINE')
+    setInterval(() => {
+      this.tokenData.loading = true
+      localStorage.removeItem('usertoken')
+      localStorage.removeItem('account_id')
+      localStorage.removeItem('google_code')
+      localStorage.removeItem('google_scope')
+      this.setUser(null)
+      let vue = new Vue()
+      vue.APIRequest('authenticate/invalidate')
+      this.clearNotifTimer()
+      this.tokenData.token = null
+      ROUTER.go('/')
+    }, 1000)
   },
   retrieveNotifications(accountId){
     let vue = new Vue()
@@ -504,5 +512,18 @@ export default {
       })
       this.google.maps.markers.push(marker)
     })
+  },
+  setStatus(data){
+    if(this.accounts.length > 0){
+      this.accounts = this.accounts.map((item) => {
+        if(parseInt(item.id) === parseInt(data.id) && data.token !== null){
+          return {
+            ...item,
+            login_status: data.status
+          }
+        }
+        return item
+      })
+    }
   }
 }
