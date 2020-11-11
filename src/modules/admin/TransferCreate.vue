@@ -98,6 +98,11 @@
       ref="confirmation"
       @onConfirm="transfer"
       />
+    <IncrementAlert
+      :title="'Success Message'"
+      :message="'Transaction was successfully processed.'"
+      ref="incrementAlert"
+      />
   </div>
 </template>
 <style scoped lang="scss">
@@ -126,6 +131,7 @@ import CONFIG from 'src/config.js'
 import COMMON from 'src/common.js'
 import COUNTRIES from 'src/countries.js'
 import Confirmation from 'src/components/increment/generic/modal/Confirmation.vue'
+import IncrementAlert from 'src/components/increment/generic/modal/Alert.vue'
 export default {
   mounted(){
   },
@@ -151,7 +157,8 @@ export default {
   props: [],
   components: {
     'otp-modal': require('components/increment/generic/otp/OtpInput.vue'),
-    Confirmation
+    Confirmation,
+    IncrementAlert
   },
   methods: {
     hideModal(){
@@ -169,7 +176,6 @@ export default {
       this.hideModal()
     },
     successOTP(otp){
-      console.log(otp)
       this.otp = otp
       this.transfer()
     },
@@ -184,7 +190,9 @@ export default {
           clause: '='
         }]
       }
+      $('#loading').css({display: 'block'})
       this.APIRequest('accounts/retrieve_accounts', parameter).then(response => {
+        $('#loading').css({display: 'none'})
         if(response.data.length > 0){
           this.account = response.data[0]
         }else{
@@ -208,15 +216,20 @@ export default {
         from_description: this.fromDescription,
         amount: this.amount,
         otp: this.otp,
-        stage: this.stage
+        stage: this.stage,
+        type: this.type
       }
+      $('#loading').css({display: 'block'})
       this.APIRequest('ledger/transfer', parameter).then(response => {
+        $('#loading').css({display: 'none'})
         this.stage = response.stage
         if(response.error !== null){
 
         }else if(response.stage === 2){
           this.$refs.otpModal.show()
-        }else if(response.data.length > 0){
+        }else if(response.stage === 3 && response.data === true){
+          //
+          this.$refs.incrementAlert.show('/admin/transfer')
         }else{
         }
       })
