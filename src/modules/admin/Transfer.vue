@@ -36,6 +36,21 @@
         <div class="col-12" v-if="balance !== null && largest.balance > 0">
           <button type="button" class="btn btn-outline-primary rounded-pill pull-right" @click="redirect('/admin/transfer/create')">Transfer Funds</button>
         </div>
+        <div v-for="(item, index) in data" :key="index" class="card">
+          <div class="card-header row m-0 align-items-center px-0">
+            <div class="col-md-12 col-sm-12 p-0 text-gray">
+              {{item.created_at_human}}
+            </div>
+            <div class="w-50 font-weight-bold p-0">{{item.description ? item.description : ''}}</div>
+            <div class="w-50 text-right font-weight-bold" :class="item.amount > 0 ? 'text-success' : 'text-danger'">
+              {{item.amount > 0 ? '+ ' : '- '}}{{item.amount > 0 ? currency.displayWithCurrency(item.amount, item.currency) : currency.displayWithCurrency(item.amount * -1, item.currency)}}
+            </div>
+          </div>
+        </div>
+        <div v-if="data !== null" class="text-center option-holder">
+          <button class="btn btn-primary rounded" @click="retrieveHistory(limitHistory + 5)" v-if="!showButton">Show more</button>
+          <button class="btn btn-primary rounded" @click="retrieveHistory(5)" v-if="showButton">Show less</button>
+        </div>
         <empty v-if="data === null" :title="'No transaction yet!'" :action="'Start transfering funds.'"></empty>
       </div>
     </div>
@@ -49,6 +64,31 @@
 }
 .fa{
   padding-right: 0px !important;
+}
+
+.card {
+  border: none;
+  border-bottom: 1px solid #ccc !important;
+  width: 100%;
+  float: left;
+}
+
+.option-holder{
+  width: 100%;
+  float: left;
+  margin-top: 25px;
+}
+
+@media (max-width: 992px) {
+  .col-6{
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+  .ledger-holder{
+    width: 100%;
+    margin-left: 0%;
+    margin-right: 0%;
+  }
 }
 </style>
 <script>
@@ -73,7 +113,12 @@ export default {
       largest: {balance: 0},
       balance: null,
       ledger: null,
-      withdraw: null
+      withdraw: null,
+      offsetHistory: 0,
+      limitHistory: 5,
+      showButton: false,
+      show: false,
+      dataLength: 0
     }
   },
   components: {
@@ -87,6 +132,7 @@ export default {
       ROUTER.push('/marketplace')
     }
     this.retrieve()
+    this.retrieveHistory()
   },
   methods: {
     redirect(params){
@@ -124,6 +170,42 @@ export default {
               this.largest = bal
             }
           })
+        }
+      })
+    },
+    retrieveHistory(limit) {
+      let parameter = {
+        account_id: this.user.userID,
+        account_code: this.user.code,
+        offset: this.offsetHistory * limit,
+        limit: limit
+      }
+      $('#loading').css({display: 'block'})
+      this.APIRequest('ledger/history', parameter).then(response => {
+        $('#loading').css({display: 'none'})
+        if(response.data.length > 0) {
+          let array = null
+          if(this.data){
+            array = response.data
+          }else{
+            array = response.data
+          }
+          this.data = array
+          if(response.size > 5){
+            if(this.dataLength === response.data.length){
+              this.showButton = true
+            }else {
+              this.limit = limit
+              this.showButton = false
+              this.dataLength = response.data.length
+            }
+          }else {
+            this.show = true
+          }
+        } else {
+          if(this.offsetHistory === 0){
+            this.data = null
+          }
         }
       })
     }

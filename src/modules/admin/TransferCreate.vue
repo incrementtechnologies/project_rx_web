@@ -1,8 +1,8 @@
 <template>
   <div class="row">
     <div class="col-md-6 mx-auto">
-      <div class="form-group">
-        
+      <div class="form-group" v-if="errorMessage !== null">
+        <label class="text-danger">{{errorMessage}}</label>
       </div>
       <div class="form-group">
         <label>Account Code</label>
@@ -85,7 +85,7 @@
         </div>
 
         <div class="form-group">
-          <button class="btn btn-primary pull-right" @click="showConfirmation()">Continue</button>
+          <button class="btn btn-primary pull-right" @click="validation()">Continue</button>
           <!-- <button class="btn btn-primary pull-right" @click="$refs.otpModal.show()">Continue</button> -->
         </div>
        
@@ -99,8 +99,8 @@
       @onConfirm="transfer"
       />
     <IncrementAlert
-      :title="'Success Message'"
-      :message="'Transaction was successfully processed.'"
+      :title="alertTitle"
+      :message="alertMessage"
       ref="incrementAlert"
       />
   </div>
@@ -151,7 +151,10 @@ export default {
       type: 'AUTOMATIC',
       fromDescription: null,
       stage: 1,
-      opt: null
+      opt: null,
+      alertMessage: null,
+      alertTitle: null,
+      errorMessage: null
     }
   },
   props: [],
@@ -203,6 +206,21 @@ export default {
     showConfirmation(){
       this.$refs.confirmation.show(null)
     },
+    validation(){
+      this.errorMessage = null
+      if(this.amount <= 0){
+        this.errorMessage = 'Amount must be greater than 0.'
+        return
+      }
+      if(this.payload === null || this.payloadValue === null || (this.fromDescription === null && this.type === 'AUTOMATIC')){
+        this.errorMessage = 'All fields are required.'
+        return
+      }
+      if(this.errorMessage !== null){
+        return
+      }
+      this.showConfirmation()
+    },
     transfer(){
       let parameter = {
         from_account_id: this.user.userID,
@@ -224,11 +242,16 @@ export default {
         $('#loading').css({display: 'none'})
         this.stage = response.stage
         if(response.error !== null){
-
+          this.alertTitle = 'Error Message'
+          this.alertMessage = response.error
+          this.stage = 1
+          this.$refs.incrementAlert.show(null)
         }else if(response.stage === 2){
           this.$refs.otpModal.show()
         }else if(response.stage === 3 && response.data === true){
           //
+          this.alertTitle = 'Success Message'
+          this.alertMessage = 'Your transaction was successfully processed.'
           this.$refs.incrementAlert.show('/admin/transfer')
         }else{
         }
