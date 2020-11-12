@@ -5,7 +5,11 @@
         <li class="title"><b>{{common.APP_NAME}}</b></li>
         <li><a v-on:click="redirect('/')">Home</a></li>
         <li><a v-on:click="redirect('/aboutUs')">About Us</a></li>
-        <li><a v-on:click="redirect('/')">Contact Us</a></li>
+        <li>Contact Us</li>
+        <ul class="contact-us-details">
+          <span><a style="color:white" href="tel:+639635397685"><i class='fa fa-phone fa-flip-horizontal'></i>&nbsp;&nbsp;(+63) 963-539-7685</a></span><br>
+          <span><a style="color:white" href="mailto:marketing.runwayexpress@gmail.com"><i class="fa">&#xf0e0;</i>&nbsp;&nbsp;marketing.runwayexpress@gmail.com</a></span>
+        </ul> 
       </ul>
       <ul class="footer-widget">
         <li class="title"><b>Privacy and Terms</b></li>
@@ -176,8 +180,6 @@ footer-widget .title:hover{
 .contact-us-details{
   margin-left: -20px;
 }
-
-
 </style>
 <script>
 import ROUTER from 'src/router'
