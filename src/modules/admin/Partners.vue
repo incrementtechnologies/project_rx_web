@@ -11,18 +11,17 @@
       @changeStyle="manageGrid($event)"
       :grid="['list', 'th-large']"></basic-filter>
     
-    <table class="table table-bordered table-responsive" v-if="auth.user.onlineAccounts.length > 0">
+    <table class="table table-bordered table-responsive" v-if="auth.accounts.length > 0">
       <thead class="bg-primary">
         <tr>
           <td>Username</td>
           <td>Email</td>
-          <td>Address</td>
           <td>Type</td>
           <td>Status</td>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in auth.user.onlineAccounts" :key="index">
+        <tr v-for="(item, index) in auth.accounts" :key="index">
             <td>
                 <label class="action-link text-primary" @click="viewProd(item)">
                 {{item.username}}
@@ -32,9 +31,8 @@
                 </label>
             </td>
             <td>{{item.email}}</td>
-            <td>{{item.partner_locations}}</td>
             <td>{{item.account_type}}</td>
-            <td :class="item.status === 'ONLINE' ? 'greenClass' : 'redClass'">{{item.status}}</td>
+            <td :class="item.login_status === 'ONLINE' ? 'greenClass' : 'redClass'">{{item.login_status}}</td>
         </tr>
       </tbody>
     </table>
@@ -48,10 +46,10 @@
     :pages="numPages"
     :active="activePage"
     :limit="limit"
-    v-if="auth.user.onlineAccounts.length > 0"
+    v-if="auth.accounts.length > 0"
     />
 
-    <empty v-if="auth.user.onlineAccounts.length === 0" :title="'No accounts available!'" :action="'Keep growing.'"></empty>
+    <empty v-if="auth.accounts.length === 0" :title="'No accounts available!'" :action="'Keep growing.'"></empty>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -219,10 +217,10 @@ export default{
       this.APIRequest('accounts/retrieve_accounts', parameter).then(response => {
         $('#loading').css({display: 'none'})
         if(response.data.length > 0){
-          AUTH.user.onlineAccounts = response.data
+          AUTH.accounts = response.data
           this.numPages = parseInt(response.size / this.limit) + (response.size % this.limit ? 1 : 0)
         }else{
-          AUTH.user.onlineAccounts = []
+          AUTH.accounts = []
           this.numPages = null
         }
       })

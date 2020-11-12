@@ -58,7 +58,7 @@ export default {
   settingsMenu: [
     {title: 'Profile', hideFrom: ['MERCHANT'], type: 'profile', allowed: ['cellular_number', 'address', 'sex', 'birth_date']},
     {title: 'Business Information', hideFrom: ['USER', 'RIDER'], type: 'merchant', allowed: ['email', 'prefix', 'website']},
-    {title: 'Notifications', hideFrom: [], type: 'notification', allowed: []},
+    // {title: 'Notifications', hideFrom: [], type: 'notification', allowed: []},
     {title: 'Business Locations', hideFrom: ['USER', 'RIDER'], type: 'merchant_locations', allowed: []},
     {title: 'Account', hideFrom: [], type: 'account', allowed: []},
     {title: 'Billing Information', hideFrom: [], type: 'billing_information'},
@@ -91,6 +91,7 @@ export default {
     private: 'runway_broadcast',
     notifications: 'Notifications',
     locationSharing: 'LocationSharing',
+    accountStatus: 'AccountStatus',
     rider: 'Rider',
     messages: 'Message',
     validation: 'Validation',
@@ -140,11 +141,11 @@ export default {
   alertFlag: false,
   appUrl: {
     android: 'https://play.google.com/store/apps/details?id=com.runwayexpress',
-    ios: 'https://appstore.test'
+    ios: 'https://apps.apple.com/us/app/runway-express/id1533076707'
   },
   headerFlag: {
     messenger: false,
-    notification: false,
+    notification: true,
     cart: false
   }
 }

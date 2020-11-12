@@ -1,7 +1,7 @@
 <template>
   <div
     class="modal fade"
-    id="refundModal"
+    id="cancellationAndRefundModal"
     tabindex="-1"
     role="dialog"
     aria-labelledby="exampleModalLabel"
@@ -10,13 +10,44 @@
     <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
         <div class="modal-header bg-primary">
-          <h5 class="modal-title text-light" id="exampleModalLabel">REFUND POLICY</h5>
+          <h5 class="modal-title text-light" id="exampleModalLabel">CANCELLATION AND REFUND POLICY</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true" class="text-white">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="guide-holder">
+            <ul class="first-ul">
+              <li><strong>CANCELLATION POLICY</strong></li>
+              <li>As a general rule you shall not be entitled to cancel your order once you have received confirmation of the same. Cancellation of order can be done Cash on Delivery. For online payment cancellation of order is not allowed.</li>
+              <li>
+                Runway Express and Merchant Partner has the right to cancel order in such case  full refund will be done from the website support@runwayexpress.com. In the unlikely event of an unavailable item in your order, we will contact you thru the phone number / email provided, in such event you will be entitled to cancel the entire order and shall be refunded in accordance with our refund policy.
+              </li>
+              <li>
+                We reserve the right to cancel your order in the following circumstance:
+                <ul class="second-ul">
+                  <li>
+                    in the event of the designated address outside in the delivery zone offered by us
+                  </li>
+                  <li>
+                    failure to contact you by phone or email at the time of confirming the order booking
+                  </li>
+                  <li>
+                    failure to deliver your order due to lack of information, direction from you at the time of delivery; or
+                  </li>
+                  <li>
+                    unavailability of all the items ordered by you at the time of booking the order; or
+                  </li>
+                  <li>
+                    failure due to reasons beyond our control or attributable to the Vendor.
+                  </li>
+                </ul>
+                You must notify Runway express 10 minutes after placing the order if you decide to cancel your order by phone or email.
+              </li>
+              <li>
+                If the cancellation was made in time and once the merchant has accepted your cancellation, we will refund the amount, which includes the initial delivery charge. (if applicable)
+              </li>
+            </ul>
             <ul class="first-ul">
               <li>
                 <strong>REFUND POLICY</strong>
@@ -28,44 +59,44 @@
                 </ul>
               </li>
               <br>
-              <table class="table-style">
+              <table class="table table-bordered">
                 <thead class="text-center">
                   <tr>
-                    <th scope="col">OREDER STATUS /SITUATION <br>COD/ONLINE</th>
+                    <th scope="col">ORDER STATUS /SITUATION <br>COD/ONLINE</th>
                     <th scope="col">REFUND</th>
                     <th scope="col">AFFLICABLE</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Order not in condition, damaged, tampered</td>
+                    <td>Order not in condition, damaged, tampered.</td>
                     <td>PARTIAL REFUND</td>
                     <td>-BOTH-</td>
                   </tr>
                   <tr>
-                    <td>Order that is returned more than 24hours after delivery</td>
+                    <td>Order that is returned more than 24 hours after delivery.</td>
                     <td>NOT REFUND</td>
                     <td>-BOTH-</td>
                   </tr>
                   <tr>
-                    <td>Delivery location following outside our designated delivery zones</td>
+                    <td>Delivery location following outside our designated delivery zones.</td>
                     <td>NOT REFUND</td>
                     <td>-BOTH-</td>
                   </tr>
                   <tr>
-                    <td>Failure to contact by phone or email at the time confirming</td>
+                    <td>Failure to contact by phone or email at the time confirming.</td>
                     <td>NOT REFUND</td>
                     <td>-BOTH-</td>
                   </tr>
                   <tr>
-                    <td>Cancelling the order after the time of confirmation at<br>the time of booking</td>
+                    <td>Cancelling the order after the time of confirmation at<br>the time of booking.</td>
                     <td>NOT REFUND</td>
                     <td>-BOTH-</td>
                   </tr>
                 </tbody>
               </table>
               <br>
-              <table class="table-style">
+              <table class="table table-bordered">
                 <tbody>
                   <tr class="text-center">
                     <th scope="col">MISSING / INCORRECT ORDER</th>
@@ -113,6 +144,45 @@
                   Runway Express will refund the total price of any cancelled order to the credit or debit card used to place the order.
                 </li>
               </ul>
+              <li><strong>TIMELINE</strong></li>
+              <ul class="second-ul">
+                <li>
+                  All refund amounts shall be credited to your account within 7 working days in accordance with the terms that may be stipulated by the bank which has issued the credit / debit card And we collect processing fee.
+                </li>
+              </ul>
+              <li><strong>LATE OR MISSING REFUNDS (if applicable)</strong></li>
+              <ul class="second-ul">
+                <li>
+                  If you haven’t received a refund yet, first check your bank account again.
+                </li>
+                <li>
+                  Then contact your credit card company, it may take some time before your refund is officially posted.
+                </li>
+                <li>
+                  Next, contact your bank. There is often some processing time before a refund is posted.
+                </li>
+                <li>
+                  If you’ve done all of this and you still have not received your refund yet, please contact us at support@runwayexpress.com.
+                </li>
+              </ul>
+              <li><strong>SALE ITEMS (if applicable)</strong></li>
+              <ul class="second-ul">
+                <li>Only regular priced items may be refunded, unfortunately, sale items cannot be refunded.</li>
+              </ul>
+              <li><strong>EXCHANGES (if applicable)</strong></li>
+              <ul class="second-ul">
+                <li>We only replace items if they are defective or damaged, tampered.  If you need to exchange it for the same item, send us an email at support@runwayexpress.com and send your item to R.E main office Davao City, 8000, Philippines.</li>
+              </ul>
+              <li><strong>SHIPPING</strong></li>
+              <ul class="second-ul">
+                <li>
+                  To return your product, you should mail your product to R.E main office Davao City, 8000, Philippines.
+                  You will be responsible for paying for your own shipping costs for returning your item. Shipping costs are non-refundable. If you receive a refund, the cost of return shipping will be deducted from your refund.
+                </li>
+              </ul>
+              <li>
+                NOTE: If there is any issue with the  delivery  and you are outside of the window for a refund through Self-Help, please <a href="help.doordash.com">contact customer</a> support as soon as possible so we may assist you. 
+              </li>
             </ul>
           </div>
         </div>
@@ -121,7 +191,7 @@
             type="button"
             class="btn btn-danger"
             data-toggle="modal"
-            data-target="#refundModal"
+            data-target="#cancellationAndRefundModal"
           >Close</button>
         </div>
       </div>
@@ -154,7 +224,7 @@ ul li {
   padding-left: 10px;
   list-style: inside;
 }
-.table-style{
+.table{
   text-align: justify;
   font-size: 15px;
   color: grey;
