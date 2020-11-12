@@ -306,7 +306,6 @@ export default {
     'privacy-policy': () => import('modules/docs/PrivacyPolicy.vue'),
     'terms-and-conditions': () => import('modules/docs/TermsAndConditions.vue'),
     'faq': () => import('modules/docs/Faq.vue'),
-    'return-policy': () => import('modules/docs/ReturnPolicy.vue'),
     'refund-policy': () => import('modules/docs/CancellationAndRefundPolicy.vue'),
     'partners-payout-policy': () => import('modules/docs/PartnersPayoutPolicy.vue'),
     'merchant-guide': () => import('modules/guide/MerchantGuide.vue'),
