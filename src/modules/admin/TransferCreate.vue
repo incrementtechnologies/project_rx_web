@@ -67,12 +67,11 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" v-if="transferPayloads.length > 0">
           <label>Payload</label>
           <div class="input-group">
             <select class="form-control form-control-custom" v-model="payload">
-              <option value="Sales">Sales</option>
-              <option value="Others">Others</option>
+              <option :value="item.payload_value" v-for="(item, index) in transferPayloads">{{item.payload_value}}</option>
             </select>
           </div>
         </div>
@@ -134,6 +133,7 @@ import Confirmation from 'src/components/increment/generic/modal/Confirmation.vu
 import IncrementAlert from 'src/components/increment/generic/modal/Alert.vue'
 export default {
   mounted(){
+    this.retrieveTransferPayloads()
   },
   data(){
     return {
@@ -154,7 +154,8 @@ export default {
       opt: null,
       alertMessage: null,
       alertTitle: null,
-      errorMessage: null
+      errorMessage: null,
+      transferPayloads: []
     }
   },
   props: [],
@@ -164,6 +165,21 @@ export default {
     IncrementAlert
   },
   methods: {
+    retrieveTransferPayloads(){
+      let parameter = {
+        condition: [{
+          clause: '=',
+          column: 'payload',
+          value: 'transfer_payloads'
+        }],
+        sort: {
+          payload_value: 'asc'
+        }
+      }
+      this.APIRequest('payloads/retrieve', parameter).then(response => {
+        this.transferPayloads = response.data
+      })
+    },
     hideModal(){
       this.account = null
       this.code = null

@@ -5,17 +5,16 @@
       <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
         <label>
           <b>Payment Centers</b>
-          <button class="btn btn-primary pull-right" @click="showModal('create', 'payment_centers', 'Payment Center')"><i class="fa fa-plus"></i></button>
+          <button class="btn btn-primary pull-right" @click="showModalPaymentCenter('create', null)"><i class="fa fa-plus"></i></button>
         </label>
-        <table v-if="paymentCenters !== null && paymentCenters.length > 0">
-          <tr v-for="(item, index) in paymentCenters">
-            <td style="width: 100%;">
-              {{item.payload_value}}
-              <button class="btn btn-primary pull-right" @click="showModal('create', 'payment_centers', 'Payment Center')"><i class="fa fa-edit"></i></button>
-              <button class="btn btn-primary pull-right" @click="showModal('create', 'payment_centers', 'Payment Center')"><i class="fa fa-trash"></i></button>
-            </td>
-          </tr>
-        </table>
+        <div v-if="paymentCenters !== null && paymentCenters.length > 0">
+          <label v-for="(item, index) in paymentCenters" class="payload-item">
+            <p style="margin-bottom: 0px; line-height: 30px;"><b>{{item.category}}</b></p>
+            {{item.payload_value}}
+            <i class="fa fa-edit pull-right text-success"  @click="showModalPaymentCenter('update', item)"></i>
+            <i class="fa fa-trash pull-right text-danger"  @click="removeItemAlert(item, 'payment_centers')"></i>
+          </label>
+        </div>
       </div>
       <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
         <label>
@@ -79,8 +78,9 @@
 .fa{
   padding-right: 0px !important;
 }
-label{
+label, p{
   width: 100%;
+  float: left;
 }
 
 .payload-item{
@@ -112,6 +112,7 @@ import AUTH from 'src/services/auth'
 import CONFIG from 'src/config.js'
 import COMMON from 'src/common.js'
 import payloadModal from './Payloads.js'
+import paymentCentersModal from './PaymentCenters.js'
 import Confirmation from 'src/components/increment/generic/modal/Confirmation.vue'
 export default{
   mounted(){
@@ -152,6 +153,55 @@ export default{
         this.retrieve()
       })
     },
+    showModalPaymentCenter(action, item = null){
+      this.payload = 'payment_centers'
+      if(action === 'create') {
+        this.modalProperty = paymentCentersModal
+        let inputs = this.modalProperty.inputs
+        inputs.map(input => {
+          if(input.id === 'payload'){
+            input.value = 'payment_centers'
+          }else{
+            input.value = null
+          }
+        })
+        let params = this.modalProperty.params
+        params.map(param => {
+          if(param.variable === 'account_id'){
+            param.value = this.user.userID
+          }
+        })
+      }
+      if(item !== null) {
+        let modalData = paymentCentersModal
+        let parameter = {
+          title: 'Update',
+          route: 'payloads/update',
+          button: {
+            left: 'Cancel',
+            right: 'Update'
+          },
+          params: [{
+            variable: 'id',
+            value: item.id
+          }]
+        }
+        modalData = {...modalData, ...parameter}
+        modalData.inputs.map(input => {
+          if(input.variable === 'payload_value'){
+            input.value = item.payload_value
+          }
+          if(input.variable === 'payload'){
+            input.value = item.payload
+          }
+          if(input.variable === 'category'){
+            input.value = item.category
+          }
+          this.modalProperty = {...modalData}
+        })
+      }
+      $('#paymentCentersModal').modal('show')
+    },
     showModal(action, category, categoryLabel, item = null){
       this.payload = category
       if(action === 'create') {
@@ -176,7 +226,7 @@ export default{
 
       }
       if(item !== null) {
-        let modalData = {...this.modalProperty}
+        let modalData = payloadModal
         let parameter = {
           title: 'Update',
           route: 'payloads/update',
