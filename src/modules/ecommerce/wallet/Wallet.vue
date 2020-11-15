@@ -9,10 +9,10 @@
       <div class="mt-4 balance text-center">{{balance !== null ? currency.displayWithCurrency(largest.balance, largest.currency) : 'No Available Balance'}}</div>
       <div class="mt-1 font-weight-bold text-muted text-center" v-if="balance !== null">Highest Balance</div>
       
-      <div class="container row w-75 justify-content-center m-0 mt-3 mx-auto pb-4 border-bottom border-bottom-lg" v-if="balance !== null && largest.balance > 0">
+      <!-- <div class="container row w-75 justify-content-center m-0 mt-3 mx-auto pb-4 border-bottom border-bottom-lg" v-if="balance !== null && largest.balance > 0">
         <button type="button" class="btn btn-outline-primary rounded-pill py-3 px-5 font-weight-bold" @click="$refs.funds.show()">Transfer Funds</button>
       </div>
-
+ -->
       <div class="container row px-0 w-75 flow-column justify-content-center m-0 mt-3 mx-auto">
         <div class="card col-12" v-for="(item, index) in balance" :key="index">
           <div class="card-body row py-4 align-items-center">

@@ -45,7 +45,7 @@
       :title="'Removal Confirmation'"
       :message="'Are you sure you want to continue this action?'"
       ref="confirmation"
-      @onConfirm="removeItem"/>
+      @onConfirm="remove"/>
 
     <empty v-if="data === null" :title="'No delivery fee available!'" :action="'Click add button to start.'"></empty>
     <increment-modal :property="modalProperty"></increment-modal>

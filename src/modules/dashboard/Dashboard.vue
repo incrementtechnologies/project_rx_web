@@ -34,9 +34,9 @@
             <br>
             <span class="font-weight-bold text-muted" style="opacity: .7">{{balance === null ? '' : balance.length > 1 ? 'More Currency Available' : 'Available'}}</span>
           </div>
-          <div class="col-12 mt-3" v-if="balance !== null && largest.balance > 0">
+       <!--    <div class="col-12 mt-3" v-if="balance !== null && largest.balance > 0">
             <button type="button" class="btn btn-outline-primary rounded-pill" @click="$refs.funds.show()">Transfer Funds</button>
-          </div>
+          </div> -->
         </div>
 
         <div class="col-12 mt-4 border bg-light shadow-sm px-2 py-4 row m-0 rounded-lg">

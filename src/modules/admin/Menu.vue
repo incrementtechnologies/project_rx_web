@@ -24,7 +24,6 @@ ul{
   margin: 0px;
   padding: 0px;
   float: left;
-  margin-bottom: 25px;
   width: 100%;
 }
 li{
@@ -94,6 +93,9 @@ export default {
       }, {
         title: 'Transfer',
         route: '/admin/transfer'
+      }, {
+        title: 'Settings',
+        route: '/admin/settings'
       }],
       optionsMktg: [{
         title: 'Delivery Fee',
@@ -117,6 +119,9 @@ export default {
       }, {
         title: 'Transfer',
         route: '/admin/transfer'
+      }, {
+        title: 'Settings',
+        route: '/admin/settings'
       }],
       selected: {
         title: 'Accounts',
