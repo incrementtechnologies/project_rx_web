@@ -35,7 +35,7 @@
     "jspdf": "^2.0.0",
     "laravel-echo": "^1.8.1",
     "lodash": "^4.17.20",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "pdfmake": "^0.1.68",
     "popper.js": "^1.14.3",
     "pusher-js": "^4.4.0",
